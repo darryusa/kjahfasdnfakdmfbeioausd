@@ -82,10 +82,11 @@ public class CustomGridAdapter extends BaseAdapter implements Filterable
             {
                 Filter.FilterResults results = new Filter.FilterResults();
                 ArrayList<String> filters = new ArrayList<String>();
+                Log.i("HERE: ", String.valueOf(constraint.length()));
                 if(constraint.length() == 0)
                 {
-                    results.values = items;
-                    results.count = items.size();
+                    results.values = filterList;
+                    results.count = filterList.size();
                     return results;
                 }
                 if(constraint != null && constraint.length() >0)
