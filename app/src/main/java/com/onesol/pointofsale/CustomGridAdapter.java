@@ -1,20 +1,15 @@
 package com.onesol.pointofsale;
 
 import android.content.Context;
-import android.provider.SyncStateContract;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.ImageView;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Neal on 8/9/2016.
@@ -42,18 +37,9 @@ public class CustomGridAdapter extends BaseAdapter implements Filterable
             convertView = mInflater.inflate(R.layout.cell, null);
         }
 
-        // TextView nameTxt = (TextView) convertView.findViewById(R.id.name);
-        // ImageView img = (ImageView) convertView.findViewById(R.id.imageView);
-
-        //  t = (TextView)findViewById(R.id.TextView01);
         textView = (TextView) convertView.findViewById(R.id.grid_item);
-        //  t.setOnClickListener(this);
-
-        // Set Data
         textView.setText(items.get(position));
-
-        // img.setImageResource(items.get(position).getImg());
-
+        // Set Data
         return convertView;
     }
 
@@ -72,11 +58,11 @@ public class CustomGridAdapter extends BaseAdapter implements Filterable
         return items.indexOf(getItem(position));
     }
 
-
     @Override
     public Filter getFilter()
     {
-        return new Filter(){
+        return new Filter()
+        {
             @Override
             protected Filter.FilterResults performFiltering(CharSequence constraint)
             {
@@ -91,9 +77,7 @@ public class CustomGridAdapter extends BaseAdapter implements Filterable
                 }
                 if(constraint != null && constraint.length() >0)
                 {
-                    // Constarint to upper
                     constraint = constraint.toString().toLowerCase();
-
 
                     for(int i=0; i<filterList.size();i++)
                     {
@@ -101,9 +85,7 @@ public class CustomGridAdapter extends BaseAdapter implements Filterable
                         {
                             filters.add(filterList.get(i));
                         }
-
                     }
-
                 }
                 results.values = filters;
                 results.count = filters.size();

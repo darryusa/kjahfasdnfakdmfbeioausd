@@ -42,7 +42,8 @@ public class HomeScreen extends AppCompatActivity {
     private GoogleApiClient client;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         SearchView searchView = (SearchView) findViewById(R.id.searchView);
@@ -65,14 +66,14 @@ public class HomeScreen extends AppCompatActivity {
         employeeGrid.setAdapter(gridAdapter);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, simple_list_item_1, textView);
 
-//        employeeGrid.setOnClickListener(new AdapterView.OnItemClickListener(){
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-//            {
-////                text.setText((String) (employeeGrid.getItemAtPosition(position)));
-//                Log.i("ITEM_CLICKED", "" + employeeGrid.getItemAtPosition(position));
-//            }
-//        });
+        employeeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+   //             text.setText((String) (employeeGrid.getItemAtPosition(position)));
+                Log.i("ITEM_CLICKED", "" + employeeGrid.getItemAtPosition(position));
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -87,21 +88,6 @@ public class HomeScreen extends AppCompatActivity {
                 return false;
             }
         });
-
-//            employeeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener()
-//
-//            {
-//                @Override
-//                public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
-//
-////                    }
-//
-//                });
-//                // ATTENTION: This was auto-generated to implement the App Indexing API.
-//                // See https://g.co/AppIndexing/AndroidStudio for more information.
-////            }
-//
-//
-//            }
+        
     }
 }
