@@ -64,6 +64,7 @@ public class HomeScreen extends AppCompatActivity {
         gridAdapter = new CustomGridAdapter(HomeScreen.this, textView);
         employeeGrid.setAdapter(gridAdapter);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, simple_list_item_1, textView);
+
 //        employeeGrid.setOnClickListener(new AdapterView.OnItemClickListener(){
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
