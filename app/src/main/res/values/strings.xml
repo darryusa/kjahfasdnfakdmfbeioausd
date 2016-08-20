@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">PointOfSale</string>
+
+    <string name="title_activity_employee">employeeActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="employee">Employee</string>
+    <string name="inventory">Inventory</string>
+    <string name="appointment">Appointment</string>
+    <string name="report">Report</string>
+    <string name="bamboo_nail_amp_spa"><![CDATA[Bamboo Nail & Spa]]></string>
 </resources>
