@@ -14,36 +14,39 @@ import java.util.List;
  */
 public class DbHandler extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION =1;
-    private static final String DATABABSE_NAME = "pointOfSale";
-    private static final String EMPLOYEE_TABLE = "employees";
-    private static final String KEY_ID = "id";
-    private static final String KEY_FIRSTNAME = "firstName";
-    private static final String KEY_LASTNAME = "lastName";
-    private static final String KEY_ADDRESS = "address";
-    private static final String KEY_PHONENUMBER = "phoneNumber";
-    private static final String KEY_SSN = "ssn";
-    private static final String KEY_PIN = "pin";
-    private static final String KEY_DATECREATED = "dateCreated";
-    private static final String KEY_ACTIVE = "active";
-    private static final String KEY_ROLE = "role";
+    private static final String DATABABSE_NAME = "pointOfSale.db";
+    public static final String EMPLOYEE_TABLE = "employees";
+    public static final String KEY_ID = "id";
+    public static final String KEY_FIRSTNAME = "firstname";
+    public static final String KEY_LASTNAME = "lastname";
+    public static final String KEY_ADDRESS = "address";
+    public static final String KEY_PHONENUMBER = "phonenumber";
+    public static final String KEY_SSN = "ssn";
+    public static final String KEY_PIN = "pin";
+    public static final String KEY_DATECREATED = "datenreated";
+    public static final String KEY_ACTIVE = "active";
+    public static final String KEY_ROLE = "role";
 
-    public DbHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABABSE_NAME, factory, DATABASE_VERSION);
+    public static final String[] ALL_COLUMNS =
+            {KEY_ID, KEY_FIRSTNAME, KEY_LASTNAME, KEY_ADDRESS, KEY_PHONENUMBER, KEY_SSN, KEY_PIN, KEY_DATECREATED, KEY_ACTIVE, KEY_ROLE};
+
+    public DbHandler(Context context) {
+        super(context, DATABABSE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE" + EMPLOYEE_TABLE +
-        "(" + KEY_ID + " INTEGER PRIMARY KEY, "
-                + KEY_FIRSTNAME + "TEXT,"
+        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + EMPLOYEE_TABLE +
+        " ( " + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_FIRSTNAME + " TEXT,"
         + KEY_LASTNAME + " TEXT, "
                 + KEY_ADDRESS + " TEXT,"
-        + KEY_PHONENUMBER + "TEXT, "
-        + KEY_SSN + "TEXT, "
-        + KEY_PIN + "TEXT, "
-        + KEY_DATECREATED + "TEXT, "
-        + KEY_ACTIVE + "INTEGER, "
-                + KEY_ROLE + "INT " + ")";
+        + KEY_PHONENUMBER + " TEXT,"
+        + KEY_SSN + " TEXT,"
+        + KEY_PIN + " TEXT,"
+        + KEY_DATECREATED + " TEXT default CURRENT_TIMESTAMP,"
+        + KEY_ACTIVE + " INTEGER,"
+                + KEY_ROLE + " INTEGER" + " )";
         db.execSQL(CREATE_CONTACTS_TABLE);
 //        db.insert()
     }

@@ -2,7 +2,9 @@ package com.onesol.pointofsale;
 
 
 import android.app.SearchManager;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 import android.view.LayoutInflater;
+import android.widget.Toast;
 
 
 import com.google.android.gms.appindexing.Action;
@@ -47,17 +50,10 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         SearchView searchView = (SearchView) findViewById(R.id.searchView);
+        Button employeeButton = (Button) findViewById(R.id.employeeButton);
         final ArrayList<String> textView = new ArrayList<String>();
-        final GridView employeeGrid = (GridView) findViewById(R.id.employeeGridView);
+        final GridView employeeGrid = (GridView) findViewById(R.id.gridView);
         final CustomGridAdapter gridAdapter;
-
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-
-        );
-        params.height = 100;
-        params.width = 350;
 
         for (int i = 0; i < 100; i++) {
             textView.add("employee" + (i + 1));
@@ -71,7 +67,15 @@ public class HomeScreen extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
    //             text.setText((String) (employeeGrid.getItemAtPosition(position)));
-                Log.i("ITEM_CLICKED", "" + employeeGrid.getItemAtPosition(position));
+                Toast.makeText( getApplicationContext(),(String)employeeGrid.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        employeeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText( getApplicationContext(),"employee button did click", Toast.LENGTH_SHORT).show();
+
             }
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -89,5 +93,20 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
         
+    }
+
+    private void insertEmployee(String firstName, String lastName,String address, String phoneNumber, String SSN, String PIN) {
+        ContentValues values = new ContentValues();
+        values.put(DbHandler.KEY_FIRSTNAME, firstName);
+        values.put(DbHandler.KEY_LASTNAME, lastName);
+        values.put(DbHandler.KEY_ADDRESS, address);
+        values.put(DbHandler.KEY_PHONENUMBER, phoneNumber);
+        values.put(DbHandler.KEY_SSN, SSN);
+        values.put(DbHandler.KEY_PIN, PIN);
+//        values.put(DbHandler.KEY_DATECREATED, dateCreated);
+
+
+        Uri employeeUri = getContentResolver().insert(DataProvider.CONTENT_URI, values);
+        Log.d("HomeScreen", "InsertedNote" + employeeUri.getLastPathSegment());
     }
 }
