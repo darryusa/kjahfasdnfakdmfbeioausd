@@ -49,6 +49,13 @@ public class DbHandler extends SQLiteOpenHelper{
                 + KEY_ROLE + " INTEGER" + " )";
         db.execSQL(CREATE_CONTACTS_TABLE);
 //        db.insert()
+//        SQLiteDatabase db1 = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(DbHandler.KEY_FIRSTNAME, "admin");
+//        values.put(DbHandler.KEY_PIN, "5555");
+//        db1.insert(EMPLOYEE_TABLE, null, values);
+//        db1.close(); // Closing database connection
+        addEmployee(new Employee(0,"admin",null,null,null,null,"5555",null,1));
     }
 
     @Override
@@ -57,7 +64,7 @@ public class DbHandler extends SQLiteOpenHelper{
 // Creating tables again
         onCreate(db);
     }
-    public void addShop(Employee newEmployee) {
+    public void addEmployee(Employee newEmployee) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_FIRSTNAME, newEmployee.getFirstName());
