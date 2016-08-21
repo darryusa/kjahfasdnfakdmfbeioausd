@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -9,18 +9,26 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.onesol.pointofsale.HomeScreen"
     android:background="@drawable/bamboobackground"
-    >
+    android:orientation="horizontal">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:weightSum="1"
             android:gravity="center_vertical">
+
+            <SearchView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchView"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/textView"
+                android:layout_alignParentBottom="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -30,27 +38,16 @@
                 android:id="@+id/textView"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
-                android:layout_alignTop="@+id/textClock"
-                android:layout_gravity="center" />
+                android:layout_alignTop="@+id/textClock" />
 
             <TextClock
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textClock"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="right|top" />
+                android:layout_alignParentEnd="true" />
 
-            <SearchView
-                android:layout_width="153dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/searchView"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/textView"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="left|center_vertical" />
-
-        </FrameLayout>
+        </RelativeLayout>
 
         <GridView
             android:layout_width="match_parent"
@@ -60,54 +57,60 @@
             android:numColumns="3" />
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:gravity="center_vertical|center_horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:gravity="center_vertical|center_horizontal">
 
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="70dp"
-            android:text="@string/employee"
-            android:id="@+id/employeeButton"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0" />
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="@string/employee"
+                android:id="@+id/employeeButton"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0" />
 
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="70dp"
-            android:text="@string/inventory"
-            android:id="@+id/inventoryButton"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0" />
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="@string/inventory"
+                android:id="@+id/inventoryButton"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0" />
 
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="70dp"
-            android:text="@string/appointment"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="@string/appointment"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
 
-            android:id="@+id/appointmentButton"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0" />
+                android:id="@+id/appointmentButton"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0" />
 
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="70dp"
-            android:text="@string/report"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="@string/report"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
 
-            android:id="@+id/reportButton"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0" />
+                android:id="@+id/reportButton"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0" />
+        </LinearLayout>
     </LinearLayout>
-    </LinearLayout>
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datePicker"
+        android:layout_gravity="center_vertical" />
 
 </LinearLayout>
