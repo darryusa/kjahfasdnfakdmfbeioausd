@@ -73,11 +73,11 @@ public class HomeScreen extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
 
-                Intent intent = new Intent(getContext(), PinDialog.class);
+                PinDialog pin = new PinDialog(HomeScreen.this);
 //                EditText editText = (EditText) findViewById(R.id.edit_message);
 //                String message = editText.getText().toString();
 //                intent.putExtra(EXTRA_MESSAGE, message);
-                startActivity(intent);
+                pin.show();
 //                AlertDialog.Builder pin = new AlertDialog.Builder(HomeScreen.this);
 //
 //                pin.setTitle("PIN");
