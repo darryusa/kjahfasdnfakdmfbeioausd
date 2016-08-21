@@ -32,7 +32,8 @@
 
         <activity android:name=".employeeActivity" />
         <activity android:name=".SaleActivity" />
-        <activity android:name=".PinActivity"></activity>
+        <activity android:name=".PinDialog"
+            ></activity>
     </application>
 
 </manifest>
