@@ -23,7 +23,7 @@ public class DbHandler extends SQLiteOpenHelper{
     public static final String KEY_PHONENUMBER = "phonenumber";
     public static final String KEY_SSN = "ssn";
     public static final String KEY_PIN = "pin";
-    public static final String KEY_DATECREATED = "datenreated";
+    public static final String KEY_DATECREATED = "datecreated";
     public static final String KEY_ACTIVE = "active";
     public static final String KEY_ROLE = "role";
 
