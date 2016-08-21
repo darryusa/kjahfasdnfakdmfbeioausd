@@ -72,35 +72,41 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                AlertDialog.Builder pin = new AlertDialog.Builder(HomeScreen.this);
 
-                pin.setTitle("PIN");
-                pin.setMessage("Please Enter Your Pin");
-                final EditText input = new EditText(HomeScreen.this);
-                InputFilter[] filter = new InputFilter[1];
-                filter[0] = new InputFilter.LengthFilter(4);
-                input.setFilters(filter);
-//                final EditText input2 = (EditText) findViewById(R.id.pinPassword);
-                input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-//                input
-                pin.setView(input);
-                pin.setPositiveButton("OK",new DialogInterface.OnClickListener(){
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                pin.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                pin.show();
-                AlertDialog alertDialog = pin.create();
-                alertDialog.getWindow().setLayout(200,200);
-                alertDialog.show();
+                Intent intent = new Intent(getContext(), PinDialog.class);
+//                EditText editText = (EditText) findViewById(R.id.edit_message);
+//                String message = editText.getText().toString();
+//                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+//                AlertDialog.Builder pin = new AlertDialog.Builder(HomeScreen.this);
+//
+//                pin.setTitle("PIN");
+//                pin.setMessage("Please Enter Your Pin");
+//                final EditText input = new EditText(HomeScreen.this);
+//                InputFilter[] filter = new InputFilter[1];
+//                filter[0] = new InputFilter.LengthFilter(4);
+//                input.setFilters(filter);
+////                final EditText input2 = (EditText) findViewById(R.id.pinPassword);
+//                input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+////                input
+//                pin.setView(input);
+//                pin.setPositiveButton("OK",new DialogInterface.OnClickListener(){
+//
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                pin.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                pin.show();
+//                AlertDialog alertDialog = pin.create();
+//                alertDialog.getWindow().setLayout(200,200);
+//                alertDialog.show();
 
 
    //             text.setText((String) (employeeGrid.getItemAtPosition(position)));
