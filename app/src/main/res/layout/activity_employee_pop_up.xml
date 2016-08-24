@@ -53,7 +53,8 @@
                 android:inputType="phone"
                 android:ems="10"
                 android:id="@+id/phoneNum"
-                android:hint="Phone Number" />
+                android:hint="Phone Number"
+                android:phoneNumber="true" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -73,6 +74,25 @@
                 android:password="true"
                 android:phoneNumber="false"
                 android:hint="pin" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Employee"
+                    android:id="@+id/employeeRadioButton" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manager"
+                    android:id="@+id/managerRadioButton" />
+            </RadioGroup>
         </TableLayout>
 
         <LinearLayout

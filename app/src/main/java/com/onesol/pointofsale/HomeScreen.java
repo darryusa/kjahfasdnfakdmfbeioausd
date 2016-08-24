@@ -148,7 +148,7 @@ public class HomeScreen extends AppCompatActivity {
 //        values.put(DbHandler.EMPLOYEE_KEY_DATECREATED, dateCreated);
 
 
-        Uri employeeUri = getContentResolver().insert(DataProvider.CONTENT_URI, values);
-        Log.d("HomeScreen", "InsertedNote" + employeeUri.getLastPathSegment());
+        //Uri employeeUri = getContentResolver().insert(DataProvider.CONTENT_URI, values);
+        //Log.d("HomeScreen", "InsertedNote" + employeeUri.getLastPathSegment());
     }
 }
