@@ -16,49 +16,71 @@ public class DbHandler extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION =1;
     private static final String DATABABSE_NAME = "pointOfSale.db";
     public static final String EMPLOYEE_TABLE = "employees";
-    public static final String KEY_ID = "id";
-    public static final String KEY_FIRSTNAME = "firstname";
-    public static final String KEY_LASTNAME = "lastname";
-    public static final String KEY_ADDRESS = "address";
-    public static final String KEY_PHONENUMBER = "phonenumber";
-    public static final String KEY_SSN = "ssn";
-    public static final String KEY_BIRTHDAY = "birthday";
-    public static final String KEY_DRIVERSLICENSE = "driverslicenes";
-    public static final String KEY_PIN = "pin";
-    public static final String KEY_DATECREATED = "datecreated";
-    public static final String KEY_ACTIVE = "active";
-    public static final String KEY_ROLE = "role";
+    public static final String EMPLOYEE_KEY_ID = "id";
+    public static final String EMPLOYEE_KEY_FIRSTNAME = "firstname";
+    public static final String EMPLOYEE_KEY_LASTNAME = "lastname";
+    public static final String EMPLOYEE_KEY_ADDRESS = "address";
+    public static final String EMPLOYEE_KEY_PHONENUMBER = "phonenumber";
+    public static final String EMPLOYEE_KEY_SSN = "ssn";
+    public static final String EMPLOYEE_KEY_PIN = "pin";
+    public static final String EMPLOYEE_KEY_DATECREATED = "datecreated";
+    public static final String EMPLOYEE_KEY_ACTIVE = "active";
+    public static final String EMPLOYEE_KEY_ROLE = "role";
+    public static final String EMPLOYEE_KEY_DRIVERLICENSE = "driverlicense";
+    public static final String EMPLOYEE_KEY_DATEOFBIRTH = "dateofbirth";
+    
+    public static final String INVENTORY_TABLE = "inventory";
+    public static final String INVENTORY_KEY_ID = "id";
+    public static final String INVENTORY_KEY_NAME ="name";
+    public static final String INVENTORY_KEY_PRICE = "price";
+    public static final String INVENTORY_KEY_DESCRIPTION = "description";
+    public static final String INVENTORY_KEY_QUANTITY = "quantity";
+
+    public static final String SALES_TABLE = "sales";
+    public static final String SALES_KEY_ID = "id";
+    public static final String SALES_KEY_EMPLOYEEID = "employeeid";
+    public static final String SALES_KEY_TOTAL = "total";
+    public static final String SALES_KEY_SUBTOTAL = "subtotal";
+    public static final String SALES_KEY_SALETAX = "saletax";
+    public static final String SALES_KEY_DATECREATED = "date";
+
+    public static final String SALEDESCRIPTION_TABLE = "saledecription";
+    public static final String SALEDESCRIPTION_ID = "id";
+    public static final String SALEDESCRIPTION_SALEID = "saleid";
+    public static final String SALEDESCRIPTION_ITEMID = "itemid";
+
 
     public static final String[] ALL_COLUMNS =
-            {KEY_ID, KEY_FIRSTNAME, KEY_LASTNAME, KEY_ADDRESS, KEY_PHONENUMBER, KEY_SSN, KEY_PIN, KEY_DATECREATED, KEY_ACTIVE, KEY_ROLE};
+            {EMPLOYEE_KEY_ID, EMPLOYEE_KEY_FIRSTNAME, EMPLOYEE_KEY_LASTNAME, EMPLOYEE_KEY_ADDRESS, EMPLOYEE_KEY_PHONENUMBER, EMPLOYEE_KEY_SSN, EMPLOYEE_KEY_PIN, EMPLOYEE_KEY_DATECREATED, EMPLOYEE_KEY_ACTIVE, EMPLOYEE_KEY_ROLE, EMPLOYEE_KEY_DRIVERLICENSE, EMPLOYEE_KEY_DATEOFBIRTH};
 
     public DbHandler(Context context) {
         super(context, DATABABSE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
-    // called first time it is instantiated
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + EMPLOYEE_TABLE +
-        " ( " + KEY_ID + " INTEGER PRIMARY KEY,"
-                + KEY_FIRSTNAME + " TEXT,"
-        + KEY_LASTNAME + " TEXT, "
-                + KEY_ADDRESS + " TEXT,"
-        + KEY_PHONENUMBER + " TEXT,"
-        + KEY_SSN + " TEXT,"
-        + KEY_PIN + " TEXT,"
-        + KEY_DATECREATED + " TEXT default CURRENT_TIMESTAMP,"
-        + KEY_ACTIVE + " INTEGER,"
-                + KEY_ROLE + " INTEGER" + " )";
+        " ( " + EMPLOYEE_KEY_ID + " INTEGER PRIMARY KEY,"
+                + EMPLOYEE_KEY_FIRSTNAME + " TEXT,"
+        + EMPLOYEE_KEY_LASTNAME + " TEXT, "
+                + EMPLOYEE_KEY_ADDRESS + " TEXT,"
+        + EMPLOYEE_KEY_PHONENUMBER + " TEXT,"
+        + EMPLOYEE_KEY_SSN + " TEXT,"
+        + EMPLOYEE_KEY_PIN + " TEXT,"
+        + EMPLOYEE_KEY_DATECREATED + " TEXT default CURRENT_TIMESTAMP,"
+        + EMPLOYEE_KEY_ACTIVE + " INTEGER,"
+                + EMPLOYEE_KEY_ROLE + " INTEGER"
+                + EMPLOYEE_KEY_DRIVERLICENSE + " TEXT"
+        + EMPLOYEE_KEY_DATEOFBIRTH + "TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
 //        db.insert()
 //        SQLiteDatabase db1 = this.getWritableDatabase();
 //        ContentValues values = new ContentValues();
-//        values.put(DbHandler.KEY_FIRSTNAME, "admin");
-//        values.put(DbHandler.KEY_PIN, "5555");
+//        values.put(DbHandler.EMPLOYEE_KEY_FIRSTNAME, "admin");
+//        values.put(DbHandler.EMPLOYEE_KEY_PIN, "5555");
 //        db1.insert(EMPLOYEE_TABLE, null, values);
 //        db1.close(); // Closing database connection
-        addEmployee(new Employee(0,"admin",null,null,null,null,"5555",null,1));
+//        addEmployee(new Employee(0,"admin",null,null,null,null,"5555",null,1));
     }
 
     @Override
@@ -67,34 +89,35 @@ public class DbHandler extends SQLiteOpenHelper{
 // Creating tables again
         onCreate(db);
     }
-    public void addEmployee(Employee newEmployee) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(KEY_FIRSTNAME, newEmployee.getFirstName());
-        values.put(KEY_LASTNAME, newEmployee.getLastName());
-        values.put(KEY_ADDRESS, newEmployee.getAddress());
-        values.put(KEY_PHONENUMBER, newEmployee.getPhoneNumber());
-        values.put(KEY_SSN, newEmployee.getSSN());
-        values.put(KEY_PIN, newEmployee.getPIN());
-        values.put(KEY_DATECREATED, newEmployee.getDateCreated());
-        values.put(KEY_ACTIVE, newEmployee.isActivate()? 1:0);
-        // Inserting Row
-        db.insert(EMPLOYEE_TABLE, null, values);
-        db.close(); // Closing database connection
-    }
-    public Employee getEmployee(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(EMPLOYEE_TABLE, new String[] { KEY_ID,
-                        KEY_FIRSTNAME, KEY_LASTNAME, KEY_ADDRESS, KEY_PHONENUMBER, KEY_SSN,KEY_PIN,KEY_DATECREATED,KEY_ACTIVE}, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-        Employee contact = new Employee(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),
-                cursor.getString(6),cursor.getString(7),Integer.parseInt(cursor.getString(8)));
-
-        return contact;
-    }
+//    public void addEmployee(Employee newEmployee) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(EMPLOYEE_KEY_FIRSTNAME, newEmployee.getFirstName());
+//        values.put(EMPLOYEE_KEY_LASTNAME, newEmployee.getLastName());
+//        values.put(EMPLOYEE_KEY_ADDRESS, newEmployee.getAddress());
+//        values.put(EMPLOYEE_KEY_PHONENUMBER, newEmployee.getPhoneNumber());
+//        values.put(EMPLOYEE_KEY_SSN, newEmployee.getSSN());
+//        values.put(EMPLOYEE_KEY_PIN, newEmployee.getPIN());
+//        values.put(EMPLOYEE_KEY_DATECREATED, newEmployee.getDateCreated());
+//        values.put(EMPLOYEE_KEY_ACTIVE, newEmployee.isActivate()? 1:0);
+//        values.put(EMPLOYEE_KEY_DATECREATED, newEmployee)
+//        // Inserting Row
+//        db.insert(EMPLOYEE_TABLE, null, values);
+//        db.close(); // Closing database connection
+//    }
+//    public Employee getEmployee(int id) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.query(EMPLOYEE_TABLE, new String[] { EMPLOYEE_KEY_ID,
+//                        EMPLOYEE_KEY_FIRSTNAME, EMPLOYEE_KEY_LASTNAME, EMPLOYEE_KEY_ADDRESS, EMPLOYEE_KEY_PHONENUMBER, EMPLOYEE_KEY_SSN,EMPLOYEE_KEY_PIN,EMPLOYEE_KEY_DATECREATED,EMPLOYEE_KEY_ACTIVE,EMPLOYEE_KEY_DRIVERLICENSE,EMPLOYEE_KEY_DATEOFBIRTH}, EMPLOYEE_KEY_ID + "=?",
+//                new String[] { String.valueOf(id) }, null, null, null, null);
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//        Employee contact = new Employee(Integer.parseInt(cursor.getString(0)),
+//                cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),
+//                cursor.getString(6),cursor.getString(7),Integer.parseInt(cursor.getString(8)));
+//
+//        return contact;
+//    }
     public List<Employee> getAllShops()
     {
         List<Employee> employeeList = new ArrayList<Employee>();
@@ -134,24 +157,24 @@ public class DbHandler extends SQLiteOpenHelper{
     public int updateShop(Employee employee) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_FIRSTNAME, employee.getFirstName());
-        values.put(KEY_LASTNAME, employee.getLastName());
-        values.put(KEY_ADDRESS, employee.getAddress());
-        values.put(KEY_PHONENUMBER, employee.getPhoneNumber());
-        values.put(KEY_SSN, employee.getSSN());
-        values.put(KEY_PIN, employee.getPIN());
-        values.put(KEY_DATECREATED, employee.getDateCreated());
-        values.put(KEY_ACTIVE, employee.isActivate()? 1:0);
+        values.put(EMPLOYEE_KEY_FIRSTNAME, employee.getFirstName());
+        values.put(EMPLOYEE_KEY_LASTNAME, employee.getLastName());
+        values.put(EMPLOYEE_KEY_ADDRESS, employee.getAddress());
+        values.put(EMPLOYEE_KEY_PHONENUMBER, employee.getPhoneNumber());
+        values.put(EMPLOYEE_KEY_SSN, employee.getSSN());
+        values.put(EMPLOYEE_KEY_PIN, employee.getPIN());
+        values.put(EMPLOYEE_KEY_DATECREATED, employee.getDateCreated());
+        values.put(EMPLOYEE_KEY_ACTIVE, employee.isActivate()? 1:0);
         // Inserting Row
         db.insert(EMPLOYEE_TABLE, null, values);
 // updating row
-        return db.update(EMPLOYEE_TABLE, values, KEY_ID + " = ?",
+        return db.update(EMPLOYEE_TABLE, values, EMPLOYEE_KEY_ID + " = ?",
                 new String[]{String.valueOf(employee.getEmployeeID())});
     }
 
     public void deleteShop(Employee employee) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(EMPLOYEE_TABLE, KEY_ID + " = ?",
+        db.delete(EMPLOYEE_TABLE, EMPLOYEE_KEY_ID + " = ?",
                 new String[] { String.valueOf(employee.getEmployeeID()) });
         db.close();
     }

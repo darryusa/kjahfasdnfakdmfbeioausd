@@ -1,29 +1,17 @@
 package com.onesol.pointofsale;
 
 
-import android.app.SearchManager;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Filterable;
-import android.widget.GridLayout;
 
 import android.widget.GridView;
 import android.widget.SearchView;
@@ -31,13 +19,9 @@ import android.widget.SearchView;
 
 import java.util.ArrayList;
 
-import java.util.List;
-import android.view.LayoutInflater;
 import android.widget.Toast;
 
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import static android.R.layout.simple_list_item_1;
@@ -155,13 +139,13 @@ public class HomeScreen extends AppCompatActivity {
 
     private void insertEmployee(String firstName, String lastName,String address, String phoneNumber, String SSN, String PIN) {
         ContentValues values = new ContentValues();
-        values.put(DbHandler.KEY_FIRSTNAME, firstName);
-        values.put(DbHandler.KEY_LASTNAME, lastName);
-        values.put(DbHandler.KEY_ADDRESS, address);
-        values.put(DbHandler.KEY_PHONENUMBER, phoneNumber);
-        values.put(DbHandler.KEY_SSN, SSN);
-        values.put(DbHandler.KEY_PIN, PIN);
-//        values.put(DbHandler.KEY_DATECREATED, dateCreated);
+        values.put(DbHandler.EMPLOYEE_KEY_FIRSTNAME, firstName);
+        values.put(DbHandler.EMPLOYEE_KEY_LASTNAME, lastName);
+        values.put(DbHandler.EMPLOYEE_KEY_ADDRESS, address);
+        values.put(DbHandler.EMPLOYEE_KEY_PHONENUMBER, phoneNumber);
+        values.put(DbHandler.EMPLOYEE_KEY_SSN, SSN);
+        values.put(DbHandler.EMPLOYEE_KEY_PIN, PIN);
+//        values.put(DbHandler.EMPLOYEE_KEY_DATECREATED, dateCreated);
 
 
         //Uri employeeUri = getContentResolver().insert(DataProvider.CONTENT_URI, values);
