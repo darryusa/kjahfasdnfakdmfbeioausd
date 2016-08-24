@@ -22,6 +22,8 @@ public class DbHandler extends SQLiteOpenHelper{
     public static final String KEY_ADDRESS = "address";
     public static final String KEY_PHONENUMBER = "phonenumber";
     public static final String KEY_SSN = "ssn";
+    public static final String KEY_BIRTHDAY = "birthday";
+    public static final String KEY_DRIVERSLICENSE = "driverslicenes";
     public static final String KEY_PIN = "pin";
     public static final String KEY_DATECREATED = "datecreated";
     public static final String KEY_ACTIVE = "active";
@@ -35,6 +37,7 @@ public class DbHandler extends SQLiteOpenHelper{
     }
 
     @Override
+    // called first time it is instantiated
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + EMPLOYEE_TABLE +
         " ( " + KEY_ID + " INTEGER PRIMARY KEY,"

@@ -13,15 +13,29 @@ public class DataProvider extends ContentProvider
 {
     private static final String AUTHORITY = "com.onesol.pointofsale.DataProvider";
     private static final String BASE_PATH = "pointOfSale";
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH );
-    // Constant to identify the requested operation
-    private static final int NOTES = 1;
-    private static final int NOTES_ID = 2;
-    private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+    // creating multiple content uri's for each db table
+    public static final Uri URI_EMPLOYEE = Uri.parse("content://" + AUTHORITY + "/employeeuri");
+    public static final Uri URI_INVENTORY = Uri.parse("content://" + AUTHORITY + "/inventoryuri");
+    public static final Uri URI_SALES = Uri.parse("content://" + AUTHORITY + "/salesuri");
+    public static final Uri URI_SALESDISCRIPTION = Uri.parse("content://" + AUTHORITY + "/salesdiscriptionuri");
+    public static final Uri URI_EXPENSES = Uri.parse("content://" + AUTHORITY + "/expensesuri");
+    // ENUM to identify the requested operation
+    private static final int EMPLOYEE = 1;
+    private static final int EMPLOYEE_ID = 2;
+    private static final int INVENTORY = 3;
+    private static final int INVENTORY_ID = 4;
+    private static final int SALES = 5;
+    private static final int SALES_ID = 6;
+    private static final int SALESDISCRIPTION = 7;
+    private static final int SALESDISCRIPTION_ID = 8;
+
+    private static final UriMatcher uriMatcher;
     static
     {
-        uriMatcher.addURI(AUTHORITY, BASE_PATH,NOTES);
-        uriMatcher.addURI(AUTHORITY,BASE_PATH + "/#",NOTES_ID);
+        uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        uriMatcher.addURI(AUTHORITY, "employeeuri", EMPLOYEE);
+
     }
 
     private SQLiteDatabase db;

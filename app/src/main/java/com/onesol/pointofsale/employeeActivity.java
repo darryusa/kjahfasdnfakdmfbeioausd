@@ -23,8 +23,8 @@ public class employeeActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getContext(), employeePopUp.class);
-                startActivity(intent);
+                employeePopUp employeeInfo = new employeePopUp(employeeActivity.this);
+                employeeInfo.show();
                 Toast.makeText( getApplicationContext(),"Add Employee", Toast.LENGTH_SHORT).show();
             }
         });
