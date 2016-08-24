@@ -38,7 +38,7 @@ public class DataProvider extends ContentProvider
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
         return db.query(DbHandler.EMPLOYEE_TABLE, DbHandler.ALL_COLUMNS, selection, null,null,null,
-                DbHandler.KEY_DATECREATED + " DESC");
+                DbHandler.EMPLOYEE_KEY_DATECREATED + " DESC");
     }
 
     @Nullable
