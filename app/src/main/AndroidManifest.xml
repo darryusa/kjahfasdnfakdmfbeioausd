@@ -32,8 +32,11 @@
 
         <activity android:name=".employeeActivity" />
         <activity android:name=".SaleActivity" />
-        <activity android:name=".PinDialog"
-            ></activity>
+       <!-- <activity android:name=".PinDialog"
+            />
+        <activity android:name=".employeePopUp"
+            />
+            -->
     </application>
 
 </manifest>
