@@ -50,8 +50,16 @@ public class DbHandler extends SQLiteOpenHelper{
     public static final String SALEDESCRIPTION_ITEMID = "itemid";
 
 
-    public static final String[] ALL_COLUMNS =
+
+
+    public static final String[] EMPLOYEE_ALL_COLUMNS =
             {EMPLOYEE_KEY_ID, EMPLOYEE_KEY_FIRSTNAME, EMPLOYEE_KEY_LASTNAME, EMPLOYEE_KEY_ADDRESS, EMPLOYEE_KEY_PHONENUMBER, EMPLOYEE_KEY_SSN, EMPLOYEE_KEY_PIN, EMPLOYEE_KEY_DATECREATED, EMPLOYEE_KEY_ACTIVE, EMPLOYEE_KEY_ROLE, EMPLOYEE_KEY_DRIVERLICENSE, EMPLOYEE_KEY_DATEOFBIRTH};
+    public static final String[] INVENTORY_ALL_COLUMNS =
+            {INVENTORY_KEY_ID, INVENTORY_KEY_NAME,INVENTORY_KEY_PRICE,INVENTORY_KEY_DESCRIPTION,INVENTORY_KEY_QUANTITY};
+    public static final String[] SALES_ALL_COLUMNS =
+            {SALES_KEY_ID,SALES_KEY_EMPLOYEEID,SALES_KEY_TOTAL,SALES_KEY_SUBTOTAL,SALES_KEY_SALETAX,SALES_KEY_DATECREATED};
+    public static final String[] SALEDESCRIPTION_ALL_COLUMNS =
+            {SALEDESCRIPTION_ID,SALEDESCRIPTION_SALEID,SALEDESCRIPTION_ITEMID};
 
     public DbHandler(Context context) {
         super(context, DATABABSE_NAME, null, DATABASE_VERSION);
@@ -59,20 +67,44 @@ public class DbHandler extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + EMPLOYEE_TABLE +
-        " ( " + EMPLOYEE_KEY_ID + " INTEGER PRIMARY KEY,"
-                + EMPLOYEE_KEY_FIRSTNAME + " TEXT,"
+        String CREATE_EMPLOYEE_TABLE = "CREATE TABLE " + EMPLOYEE_TABLE +
+        " ( " + EMPLOYEE_KEY_ID + " INTEGER PRIMARY KEY, "
+                + EMPLOYEE_KEY_FIRSTNAME + " TEXT, "
         + EMPLOYEE_KEY_LASTNAME + " TEXT, "
-                + EMPLOYEE_KEY_ADDRESS + " TEXT,"
-        + EMPLOYEE_KEY_PHONENUMBER + " TEXT,"
-        + EMPLOYEE_KEY_SSN + " TEXT,"
-        + EMPLOYEE_KEY_PIN + " TEXT,"
-        + EMPLOYEE_KEY_DATECREATED + " TEXT default CURRENT_TIMESTAMP,"
+                + EMPLOYEE_KEY_ADDRESS + " TEXT, "
+        + EMPLOYEE_KEY_PHONENUMBER + " TEXT, "
+        + EMPLOYEE_KEY_SSN + " TEXT, "
+        + EMPLOYEE_KEY_PIN + " TEXT, "
+        + EMPLOYEE_KEY_DATECREATED + " TEXT default CURRENT_TIMESTAMP, "
         + EMPLOYEE_KEY_ACTIVE + " INTEGER,"
                 + EMPLOYEE_KEY_ROLE + " INTEGER"
                 + EMPLOYEE_KEY_DRIVERLICENSE + " TEXT"
         + EMPLOYEE_KEY_DATEOFBIRTH + "TEXT" + ")";
-        db.execSQL(CREATE_CONTACTS_TABLE);
+
+        String CREATE_INVENTORY_TABLE = "CREATE TABLE " + INVENTORY_TABLE +
+                " ( " + INVENTORY_KEY_ID + " INTEGER PRIMARY KEY,"
+                + INVENTORY_KEY_NAME + " TEXT,"
+                + INVENTORY_KEY_PRICE + " REAL, "
+                + INVENTORY_KEY_DESCRIPTION + " TEXT, "
+                + INVENTORY_KEY_QUANTITY + " INTEGER " + ")";
+
+        String CREATE_SALES_TABLE = "CREATE TABLE " + SALES_TABLE +
+                " ( " + SALES_KEY_ID + " INTEGER PRIMARY KEY, "
+                + SALES_KEY_EMPLOYEEID + " TEXT, "
+                + SALES_KEY_TOTAL + " REAL, "
+                + SALES_KEY_SUBTOTAL + " REAL, "
+                + SALES_KEY_SALETAX + " REAL, "
+                + SALES_KEY_DATECREATED + " TEXT default CURRENT_TIMESTAMP" + ")";
+
+        String CREATE_SALEDESCRIPTION_TABLE = "CREATE TABLE " + SALEDESCRIPTION_TABLE +
+                " ( " + SALEDESCRIPTION_ID + " INTEGER PRIMARY KEY,"
+                + SALEDESCRIPTION_SALEID + " INTEGER,"
+                + SALEDESCRIPTION_ITEMID + " INTEGER " + ")";
+        db.execSQL(CREATE_EMPLOYEE_TABLE);
+        db.execSQL(CREATE_INVENTORY_TABLE);
+        db.execSQL(CREATE_SALES_TABLE);
+        db.execSQL(CREATE_SALEDESCRIPTION_TABLE);
+
 //        db.insert()
 //        SQLiteDatabase db1 = this.getWritableDatabase();
 //        ContentValues values = new ContentValues();
