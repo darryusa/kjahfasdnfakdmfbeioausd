@@ -4,7 +4,13 @@ package com.onesol.pointofsale;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-
+import android.support.v4.app.LoaderManager;
 import android.widget.GridView;
 import android.widget.SearchView;
 
@@ -26,14 +32,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import static android.R.layout.simple_list_item_1;
 
-public class HomeScreen extends AppCompatActivity {
+public class HomeScreen extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
+{
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    private CursorAdapter cursorAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -45,11 +52,13 @@ public class HomeScreen extends AppCompatActivity {
         final GridView employeeGrid = (GridView) findViewById(R.id.gridView);
         final CustomGridAdapter gridAdapter;
 
-        for (int i = 0; i < 100; i++) {
-            textView.add("employee" + (i + 1));
-        }
+        String[] from = {DbHandler.EMPLOYEE_KEY_FIRSTNAME ,  DbHandler.EMPLOYEE_KEY_LASTNAME};
+        int[] to = {android.R.id.text1};
+
+        cursorAdapter = new SimpleCursorAdapter(this,android.R.layout.simple_list_item_1,null,from,to,0);
+
         gridAdapter = new CustomGridAdapter(HomeScreen.this, textView);
-        employeeGrid.setAdapter(gridAdapter);
+        employeeGrid.setAdapter(cursorAdapter);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, simple_list_item_1, textView);
 
         employeeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -58,51 +67,13 @@ public class HomeScreen extends AppCompatActivity {
             {
 
                 PinDialog pin = new PinDialog(HomeScreen.this);
-//                EditText editText = (EditText) findViewById(R.id.edit_message);
-//                String message = editText.getText().toString();
-//                intent.putExtra(EXTRA_MESSAGE, message);
+
                 pin.show();
-//                AlertDialog.Builder pin = new AlertDialog.Builder(HomeScreen.this);
-//
-//                pin.setTitle("PIN");
-//                pin.setMessage("Please Enter Your Pin");
-//                final EditText input = new EditText(HomeScreen.this);
-//                InputFilter[] filter = new InputFilter[1];
-//                filter[0] = new InputFilter.LengthFilter(4);
-//                input.setFilters(filter);
-////                final EditText input2 = (EditText) findViewById(R.id.pinPassword);
-//                input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-////                input
-//                pin.setView(input);
-//                pin.setPositiveButton("OK",new DialogInterface.OnClickListener(){
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                pin.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                pin.show();
-//                AlertDialog alertDialog = pin.create();
-//                alertDialog.getWindow().setLayout(200,200);
-//                alertDialog.show();
 
-
-   //             text.setText((String) (employeeGrid.getItemAtPosition(position)));
-               // Intent intent = new Intent(getContext(), SaleActivity.class);
-//                EditText editText = (EditText) findViewById(R.id.edit_message);
-//                String message = editText.getText().toString();
-//                intent.putExtra(EXTRA_MESSAGE, message);
-               // startActivity(intent);
-                Toast.makeText( getApplicationContext(),(String)employeeGrid.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+//                Toast.makeText( getApplicationContext(),, Toast.LENGTH_SHORT).show();
             }
         });
-
+        getSupportLoaderManager().initLoader(0,null,this);
         employeeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,8 +96,8 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                gridAdapter.getFilter().filter(newText);
-
+                cursorAdapter.getFilter().filter(newText);
+                cursorAdapter.notifyDataSetChanged();
                 return false;
             }
         });
@@ -150,5 +121,21 @@ public class HomeScreen extends AppCompatActivity {
 
         //Uri employeeUri = getContentResolver().insert(DataProvider.CONTENT_URI, values);
         //Log.d("HomeScreen", "InsertedNote" + employeeUri.getLastPathSegment());
+    }
+
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this, DataProvider.URI_EMPLOYEE,null,null,null,null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        cursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        cursorAdapter.swapCursor(null);
     }
 }

@@ -16,7 +16,7 @@ public class DbHandler extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION =1;
     private static final String DATABABSE_NAME = "pointOfSale.db";
     public static final String EMPLOYEE_TABLE = "employees";
-    public static final String EMPLOYEE_KEY_ID = "id";
+    public static final String EMPLOYEE_KEY_ID = "_id";
     public static final String EMPLOYEE_KEY_FIRSTNAME = "firstname";
     public static final String EMPLOYEE_KEY_LASTNAME = "lastname";
     public static final String EMPLOYEE_KEY_ADDRESS = "address";
@@ -30,14 +30,14 @@ public class DbHandler extends SQLiteOpenHelper{
     public static final String EMPLOYEE_KEY_DATEOFBIRTH = "dateofbirth";
     
     public static final String INVENTORY_TABLE = "inventory";
-    public static final String INVENTORY_KEY_ID = "id";
+    public static final String INVENTORY_KEY_ID = "_id";
     public static final String INVENTORY_KEY_NAME ="name";
     public static final String INVENTORY_KEY_PRICE = "price";
     public static final String INVENTORY_KEY_DESCRIPTION = "description";
     public static final String INVENTORY_KEY_QUANTITY = "quantity";
 
     public static final String SALES_TABLE = "sales";
-    public static final String SALES_KEY_ID = "id";
+    public static final String SALES_KEY_ID = "_id";
     public static final String SALES_KEY_EMPLOYEEID = "employeeid";
     public static final String SALES_KEY_TOTAL = "total";
     public static final String SALES_KEY_SUBTOTAL = "subtotal";
@@ -45,7 +45,7 @@ public class DbHandler extends SQLiteOpenHelper{
     public static final String SALES_KEY_DATECREATED = "date";
 
     public static final String SALEDESCRIPTION_TABLE = "saledecription";
-    public static final String SALEDESCRIPTION_ID = "id";
+    public static final String SALEDESCRIPTION_ID = "_id";
     public static final String SALEDESCRIPTION_SALEID = "saleid";
     public static final String SALEDESCRIPTION_ITEMID = "itemid";
 
