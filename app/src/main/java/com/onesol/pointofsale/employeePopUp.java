@@ -77,12 +77,12 @@ public class employeePopUp extends Dialog implements View.OnClickListener
     private void insertEmployee(String firstName, String lastName,String address, String phoneNumber, String SSN, String PIN,String role)
     {
         ContentValues values = new ContentValues();
-        values.put(DbHandler.KEY_FIRSTNAME, firstName);
-        values.put(DbHandler.KEY_LASTNAME, lastName);
-        values.put(DbHandler.KEY_ADDRESS, address);
-        values.put(DbHandler.KEY_PHONENUMBER, phoneNumber);
-        values.put(DbHandler.KEY_SSN, SSN);
-        values.put(DbHandler.KEY_PIN, PIN);
+//        values.put(DbHandler.KEY_FIRSTNAME, firstName);
+//        values.put(DbHandler.KEY_LASTNAME, lastName);
+//        values.put(DbHandler.KEY_ADDRESS, address);
+//        values.put(DbHandler.KEY_PHONENUMBER, phoneNumber);
+//        values.put(DbHandler.KEY_SSN, SSN);
+//        values.put(DbHandler.KEY_PIN, PIN);
 //        values.put(DbHandler.KEY_DATECREATED, dateCreated);
 
 
