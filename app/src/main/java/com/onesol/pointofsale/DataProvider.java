@@ -8,6 +8,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
@@ -52,11 +53,12 @@ public class DataProvider extends ContentProvider
     }
 
     private SQLiteDatabase db;
+    DbHandler handler;
 
     @Override
     public boolean onCreate()
     {
-        DbHandler handler = new DbHandler(getContext());
+        handler = new DbHandler(getContext());
         db = handler.getWritableDatabase();
         return true;
     }
@@ -65,9 +67,41 @@ public class DataProvider extends ContentProvider
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder)
     {
+        // Using SQLiteQueryBuilder instead of query() method
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
-        return db.query(DbHandler.EMPLOYEE_TABLE, DbHandler.EMPLOYEE_ALL_COLUMNS, selection, null,null,null,
-                DbHandler.EMPLOYEE_KEY_DATECREATED + " DESC");
+        int uriType = uriMatcher.match(uri);
+
+        switch (uriType)
+        {
+            case EMPLOYEE_ID:
+                // Adding the ID to the original query
+                queryBuilder.appendWhere(DbHandler.EMPLOYEE_KEY_ID + "="
+                        + uri.getLastPathSegment());
+                //$FALL-THROUGH$
+            case EMPLOYEE:
+                queryBuilder.setTables(DbHandler.EMPLOYEE_TABLE);
+                break;
+
+            case INVENTORY_ID:
+                // Adding the ID to the original query
+                queryBuilder.appendWhere(DbHandler.INVENTORY_KEY_ID + "="
+                        + uri.getLastPathSegment());
+                //$FALL-THROUGH$
+            case INVENTORY:
+                queryBuilder.setTables(DbHandler.INVENTORY_TABLE);
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+
+        Cursor cursor = queryBuilder.query(handler.getReadableDatabase(),
+            projection, selection, selectionArgs, null, null,
+            sortOrder);
+        cursor.setNotificationUri(getContext().getContentResolver(),
+                uri);
+        return cursor;
     }
 
     @Nullable
