@@ -116,8 +116,28 @@ public class DataProvider extends ContentProvider
     @Nullable
     @Override
     public String getType(Uri uri)
-    {
-        return null;
+    { // This method needs to be test..... might not work..... ".DataProvider_tableuri"
+        switch (uriMatcher.match(uri))
+        {
+            case EMPLOYEE:
+                return getContext().getContentResolver().CURSOR_DIR_BASE_TYPE + "/vnd.onesol.DataProvider_employeeuri";
+            case EMPLOYEE_ID:
+                return getContext().getContentResolver().CURSOR_ITEM_BASE_TYPE + "/vnd.onesol.DataProvider_employeeuri";
+            case INVENTORY:
+                return getContext().getContentResolver().CURSOR_DIR_BASE_TYPE + "/vnd.onesol.DataProvider_inventoryuri";
+            case INVENTORY_ID:
+                return getContext().getContentResolver().CURSOR_ITEM_BASE_TYPE + "/vnd.onesol.DataProvider_inventoryuri";
+            case SALES:
+                return getContext().getContentResolver().CURSOR_DIR_BASE_TYPE + "/vnd.onesol.DataProvider_salesuri";
+            case SALES_ID:
+                return getContext().getContentResolver().CURSOR_ITEM_BASE_TYPE + "/vnd.onesol.DataProvider_salesuri";
+            case SALESDISCRIPTION:
+                return getContext().getContentResolver().CURSOR_DIR_BASE_TYPE + "/vnd.onesol.DataProvider_salesdiscriptionuri";
+            case SALESDISCRIPTION_ID:
+                return getContext().getContentResolver().CURSOR_ITEM_BASE_TYPE + "/vnd.onesol.DataProvider_salesdiscriptionuri";
+            default:
+                return null;
+        }
     }
 
     @Nullable
@@ -202,6 +222,29 @@ public class DataProvider extends ContentProvider
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs)
     {
-        return db.update(DbHandler.EMPLOYEE_TABLE,values,selection,selectionArgs);
+        String updateTable = null;
+        switch (uriMatcher.match(uri))
+        {
+            case EMPLOYEE:
+                updateTable = DbHandler.EMPLOYEE_TABLE;
+                break;
+
+            case INVENTORY:
+                updateTable = DbHandler.INVENTORY_TABLE;
+                break;
+
+            case SALES:
+                updateTable = DbHandler.SALES_TABLE;
+                break;
+
+            case SALESDISCRIPTION:
+                updateTable = DbHandler.SALEDESCRIPTION_TABLE;
+                break;
+
+            default:
+                throw new SQLiteException("Failed to update row into "+ uri);
+        }
+
+        return db.update(updateTable,values,selection,selectionArgs);
     }
 }
