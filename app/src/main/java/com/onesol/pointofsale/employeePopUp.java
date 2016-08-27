@@ -14,7 +14,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class employeePopUp extends Dialog implements View.OnClickListener
 {
@@ -22,14 +25,16 @@ public class employeePopUp extends Dialog implements View.OnClickListener
     public Dialog d;
     public Button save, cancel;
 
-    public EditText firstName;
-    public EditText lastName;
-    public EditText phoneNum;
-    public EditText address;
-    public EditText ssn;
-    public EditText pin;
-    public RadioButton role;
-
+    private EditText firstName;
+    private EditText lastName;
+    private EditText phoneNum;
+    private EditText address;
+    private EditText ssn;
+    private EditText pin;
+    private RadioGroup role;
+    private EditText driverLicense;
+    private EditText dateOfBirth;
+    private String roleString;
 
 
 
@@ -51,7 +56,17 @@ public class employeePopUp extends Dialog implements View.OnClickListener
         save.setOnClickListener(this);
         cancel.setOnClickListener(this);
         setCanceledOnTouchOutside(false);
-        //numberTextWatcher(phoneNum);
+        firstName = (EditText) findViewById(R.id.firstName);
+        lastName = (EditText) findViewById(R.id.lastName);
+        address = (EditText) findViewById(R.id.address);
+        phoneNum = (EditText) findViewById(R.id.phoneNum);
+        ssn = (EditText) findViewById(R.id.ssn);
+        pin = (EditText) findViewById(R.id.pin);
+        driverLicense = (EditText) findViewById(R.id.driverlicense);
+        dateOfBirth = (EditText) findViewById(R.id.dateOfBirth);
+        role = (RadioGroup) findViewById(R.id.radioGroup);
+        roleString = role.getCheckedRadioButtonId() == R.id.employeeRadioButton? "Employee" : "Manager";
+
 
 
 
@@ -61,8 +76,16 @@ public class employeePopUp extends Dialog implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.saveButton:
-                  //insertEmployee( );
-//                  c.finish();
+                insertEmployee(firstName.getText().toString(),
+                        lastName.getText().toString(),
+                        address.getText().toString(),
+                        phoneNum.getText().toString(),
+                        ssn.getText().toString(),
+                        pin.getText().toString(),
+                        roleString,
+                        dateOfBirth.getText().toString(),
+                        driverLicense.getText().toString()
+                     );
                 break;
             case R.id.cancelButton:
                 dismiss();
@@ -74,20 +97,22 @@ public class employeePopUp extends Dialog implements View.OnClickListener
     }
 
 
-    private void insertEmployee(String firstName, String lastName,String address, String phoneNumber, String SSN, String PIN,String role)
+    private void insertEmployee(String firstName, String lastName,String address, String phoneNumber, String SSN,
+                                String PIN,String role,String dateOfBirth,String driverLicense)
     {
-//        ContentValues values = new ContentValues();
-//        values.put(DbHandler.KEY_FIRSTNAME, firstName);
-//        values.put(DbHandler.KEY_LASTNAME, lastName);
-//        values.put(DbHandler.KEY_ADDRESS, address);
-//        values.put(DbHandler.KEY_PHONENUMBER, phoneNumber);
-//        values.put(DbHandler.KEY_SSN, SSN);
-//        values.put(DbHandler.KEY_PIN, PIN);
-//        values.put(DbHandler.KEY_DATECREATED, dateCreated);
+        ContentValues values = new ContentValues();
+        values.put(DbHandler.EMPLOYEE_KEY_FIRSTNAME, firstName);
+        values.put(DbHandler.EMPLOYEE_KEY_LASTNAME, lastName);
+        values.put(DbHandler.EMPLOYEE_KEY_ADDRESS, address);
+        values.put(DbHandler.EMPLOYEE_KEY_PHONENUMBER, phoneNumber);
+        values.put(DbHandler.EMPLOYEE_KEY_SSN, SSN);
+        values.put(DbHandler.EMPLOYEE_KEY_PIN, PIN);
+        values.put(DbHandler.EMPLOYEE_KEY_ROLE, role);
+        values.put(DbHandler.EMPLOYEE_KEY_DATEOFBIRTH,dateOfBirth);
+        values.put(DbHandler.EMPLOYEE_KEY_DRIVERLICENSE,driverLicense);
 
-
-//        Uri employeeUri = getContentResolver().insert(DataProvider.CONTENT_URI, values);
-        //Log.d("HomeScreen", "InsertedNote" + employeeUri.getLastPathSegment());
+        Uri employeeUri = c.getContentResolver().insert(DataProvider.URI_EMPLOYEE, values);
+        Log.d("HomeScreen", "InsertedNote" + employeeUri.getLastPathSegment());
     }
 
 //    private void numberTextWatcher(EditText phoneNum)

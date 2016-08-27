@@ -10,20 +10,17 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class PinDialog extends Dialog implements View.OnClickListener{
-    public interface ICustomDialogEventListener {
-        public void customDialogEvent(String valueYouWantToSendBackToTheActivity);
-    }
-    private ICustomDialogEventListener onCustomDialogEventListener2;
+public class PinDialog extends Dialog implements View.OnClickListener {
+
+    OnMyDialogResult mDialogResult;
     public Activity c;
     public Dialog d;
     public Button yes, no;
     private TextView textView;
-    public PinDialog(Activity a, ICustomDialogEventListener iCustomDialogEventListener) {
+    public PinDialog(Activity a) {
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
-        this.onCustomDialogEventListener2 = iCustomDialogEventListener;
     }
 
     @Override
@@ -43,7 +40,9 @@ public class PinDialog extends Dialog implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.okButton:
-                this.onCustomDialogEventListener2.customDialogEvent(textView.getText().toString());
+                if( mDialogResult != null ){
+                    mDialogResult.finish(String.valueOf(textView.getText()));
+                }
                 dismiss();
 //                c.finish();
                 break;
@@ -54,5 +53,12 @@ public class PinDialog extends Dialog implements View.OnClickListener{
                 break;
         }
         dismiss();
+    }
+    public void setDialogResult(OnMyDialogResult dialogResult){
+        mDialogResult = dialogResult;
+    }
+
+    public interface OnMyDialogResult{
+        void finish(String result);
     }
 }
