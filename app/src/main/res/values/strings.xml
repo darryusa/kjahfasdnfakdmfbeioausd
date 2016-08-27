@@ -10,4 +10,6 @@
     <string name="report">Report</string>
     <string name="bamboo_nail_amp_spa"><![CDATA[Bamboo Nail & Spa]]></string>
     <string name="cancel">Cancel</string>
+    <string name="employeeRadioButton">Employee</string>
+    <string name="managerRadioButton">Manager</string>
 </resources>

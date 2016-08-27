@@ -77,9 +77,9 @@ public class DbHandler extends SQLiteOpenHelper{
         + EMPLOYEE_KEY_PIN + " TEXT, "
         + EMPLOYEE_KEY_DATECREATED + " TEXT default CURRENT_TIMESTAMP, "
         + EMPLOYEE_KEY_ACTIVE + " INTEGER,"
-                + EMPLOYEE_KEY_ROLE + " INTEGER"
-                + EMPLOYEE_KEY_DRIVERLICENSE + " TEXT"
-        + EMPLOYEE_KEY_DATEOFBIRTH + "TEXT" + ")";
+                + EMPLOYEE_KEY_ROLE + " INTEGER,"
+                + EMPLOYEE_KEY_DRIVERLICENSE + " TEXT, "
+        + EMPLOYEE_KEY_DATEOFBIRTH + " TEXT" + ")";
 
         String CREATE_INVENTORY_TABLE = "CREATE TABLE " + INVENTORY_TABLE +
                 " ( " + INVENTORY_KEY_ID + " INTEGER PRIMARY KEY,"

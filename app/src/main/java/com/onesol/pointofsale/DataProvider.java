@@ -29,7 +29,6 @@ public class DataProvider extends ContentProvider
     // ENUM to identify the requested operation
     private static final int EMPLOYEE = 1;
     private static final int EMPLOYEE_ID = 2;
-    private static final int EMPLOYEE_NAME = 9;
     private static final int INVENTORY = 3;
     private static final int INVENTORY_ID = 4;
     private static final int SALES = 5;
@@ -45,7 +44,6 @@ public class DataProvider extends ContentProvider
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(AUTHORITY, "employeeuri", EMPLOYEE);
         uriMatcher.addURI(AUTHORITY, "employeeuri/#", EMPLOYEE_ID);
-        uriMatcher.addURI(AUTHORITY, "employeenameuri/#", EMPLOYEE_NAME);
         uriMatcher.addURI(AUTHORITY, "inventoryuri", INVENTORY);
         uriMatcher.addURI(AUTHORITY, "inventoryuri/#", INVENTORY_ID);
         uriMatcher.addURI(AUTHORITY, "salesuri", SALES);
@@ -84,11 +82,6 @@ public class DataProvider extends ContentProvider
                         + uri.getLastPathSegment());
                 //$FALL-THROUGH$
             case EMPLOYEE:
-                queryBuilder.setTables(DbHandler.EMPLOYEE_TABLE);
-                break;
-            case EMPLOYEE_NAME:
-                queryBuilder.appendWhere(DbHandler.EMPLOYEE_KEY_FIRSTNAME + " LIKE " + "'%"+selection+"%'"
-                + " OR " + DbHandler.EMPLOYEE_KEY_LASTNAME + " LIKE " + "'%"+selection+"%'");
                 queryBuilder.setTables(DbHandler.EMPLOYEE_TABLE);
                 break;
             case INVENTORY_ID:
