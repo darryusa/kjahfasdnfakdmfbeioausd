@@ -8,17 +8,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class PinDialog extends Dialog implements View.OnClickListener{
-
+    public interface ICustomDialogEventListener {
+        public void customDialogEvent(String valueYouWantToSendBackToTheActivity);
+    }
+    private ICustomDialogEventListener onCustomDialogEventListener2;
     public Activity c;
     public Dialog d;
     public Button yes, no;
-
-    public PinDialog(Activity a) {
+    private TextView textView;
+    public PinDialog(Activity a, ICustomDialogEventListener iCustomDialogEventListener) {
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
+        this.onCustomDialogEventListener2 = iCustomDialogEventListener;
     }
 
     @Override
@@ -26,6 +31,7 @@ public class PinDialog extends Dialog implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_pin_dialog);
+        textView = (TextView) findViewById(R.id.editText2);
         yes = (Button) findViewById(R.id.okButton);
         no = (Button) findViewById(R.id.cancelButton);
         yes.setOnClickListener(this);
@@ -37,6 +43,8 @@ public class PinDialog extends Dialog implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.okButton:
+                this.onCustomDialogEventListener2.customDialogEvent(textView.getText().toString());
+                dismiss();
 //                c.finish();
                 break;
             case R.id.cancelButton:
