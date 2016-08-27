@@ -61,18 +61,45 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
         cursorAdapter = new CustomCursorLoader(this,null,0);
 
         employeeGrid.setAdapter(cursorAdapter);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, simple_list_item_1, textView);
 
         employeeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
+//                Cursor c = getContentResolver().query(Uri.parse(DataProvider.URI_EMPLOYEE+"/"+id)
+//                        ,null,null,null,null);
+                final String[] pinEnter = {null};
+                Cursor c = getContentResolver().query(Uri.parse(DataProvider.URI_EMPLOYEE+"/"+id),new String[] {DbHandler.EMPLOYEE_KEY_PIN},null,null,null);
+                c.moveToFirst();
+                Cursor c2 = getContentResolver().query(Uri.parse(DataProvider.URI_EMPLOYEE+"/"),new String[] {DbHandler.EMPLOYEE_KEY_PIN}
+                        ,DbHandler.EMPLOYEE_KEY_ROLE +"!=?",new String[]  {"Employee"},null);
+//                c2.moveToFirst();
+                int i =0;
+                final ArrayList<String> pinNumber = new ArrayList<String>();
+                while(c2.moveToNext())
+                {
+                     pinNumber.add(c2.getString(0));
+                }
 
-                PinDialog pin = new PinDialog(HomeScreen.this);
+                final String pinNumber2 = c.getString(0);
+                PinDialog pin = new PinDialog(HomeScreen.this, new PinDialog.ICustomDialogEventListener() {
+                    @Override
+                    public void customDialogEvent(String valueYouWantToSendBackToTheActivity) {
+                        pinEnter[0] = valueYouWantToSendBackToTheActivity;
+                        for(int i = 0; i < pinNumber2.length();i++)
+                        {
+                            if (pinEnter[0].equalsIgnoreCase(pinNumber.get(i)) || pinEnter[0].equalsIgnoreCase(pinNumber2)) {
+                                //move to sale window
+                                Toast.makeText(getApplicationContext(), "items " + pinEnter[0], Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+
+                    }
+                });
 
                 pin.show();
 
-//                Toast.makeText( getApplicationContext(),, Toast.LENGTH_SHORT).show();
             }
         });
         getSupportLoaderManager().initLoader(0,null,this);
