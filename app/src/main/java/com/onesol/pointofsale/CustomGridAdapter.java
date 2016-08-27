@@ -1,6 +1,8 @@
 package com.onesol.pointofsale;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by Neal on 8/9/2016.
  */
-public class CustomGridAdapter extends BaseAdapter implements Filterable
+public class CustomGridAdapter extends CursorAdapter implements Filterable
 {
     private Context context;
     private ArrayList<String> items;
@@ -22,8 +24,9 @@ public class CustomGridAdapter extends BaseAdapter implements Filterable
     LayoutInflater mInflater;
     TextView textView;
 
-    public CustomGridAdapter(Context context, ArrayList<String> items)
+    public CustomGridAdapter(Context context, Cursor cursor, ArrayList<String> items)
     {
+        super(context,cursor,false);
         this.context = context;
         this.items = items;
         this.filterList = items;
@@ -43,6 +46,29 @@ public class CustomGridAdapter extends BaseAdapter implements Filterable
         return convertView;
     }
 
+    @Override
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        ViewHolder holder = new ViewHolder();
+        View v = null;
+
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+//        v = inflater.inflate(R.layout.item, parent, false);
+        holder.textView = (TextView) v.findViewById(R.id.text);
+
+        v.setTag(holder);
+        return v;
+    }
+
+    @Override
+    public void bindView(View view, Context context, Cursor cursor) {
+        ViewHolder holder = (ViewHolder) view.getTag();
+        holder.textView.setText(items.get(cursor.getPosition()));
+    }
+    public class ViewHolder {
+        public TextView textView;
+    }
     @Override
     public int getCount() {
         return items.size();

@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 public class DataProvider extends ContentProvider
 {
@@ -19,6 +20,7 @@ public class DataProvider extends ContentProvider
 
     // creating multiple content uri's for each db table
     public static final Uri URI_EMPLOYEE = Uri.parse("content://" + AUTHORITY + "/employeeuri");
+    public static final Uri URI_EMPLOYEE_NAME = Uri.parse("content://" + AUTHORITY + "/employeenameuri");
     public static final Uri URI_INVENTORY = Uri.parse("content://" + AUTHORITY + "/inventoryuri");
     public static final Uri URI_SALES = Uri.parse("content://" + AUTHORITY + "/salesuri");
     public static final Uri URI_SALESDISCRIPTION = Uri.parse("content://" + AUTHORITY + "/salesdiscriptionuri");
@@ -27,6 +29,7 @@ public class DataProvider extends ContentProvider
     // ENUM to identify the requested operation
     private static final int EMPLOYEE = 1;
     private static final int EMPLOYEE_ID = 2;
+    private static final int EMPLOYEE_NAME = 9;
     private static final int INVENTORY = 3;
     private static final int INVENTORY_ID = 4;
     private static final int SALES = 5;
@@ -42,6 +45,7 @@ public class DataProvider extends ContentProvider
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(AUTHORITY, "employeeuri", EMPLOYEE);
         uriMatcher.addURI(AUTHORITY, "employeeuri/#", EMPLOYEE_ID);
+        uriMatcher.addURI(AUTHORITY, "employeenameuri/#", EMPLOYEE_NAME);
         uriMatcher.addURI(AUTHORITY, "inventoryuri", INVENTORY);
         uriMatcher.addURI(AUTHORITY, "inventoryuri/#", INVENTORY_ID);
         uriMatcher.addURI(AUTHORITY, "salesuri", SALES);
@@ -82,7 +86,11 @@ public class DataProvider extends ContentProvider
             case EMPLOYEE:
                 queryBuilder.setTables(DbHandler.EMPLOYEE_TABLE);
                 break;
-
+            case EMPLOYEE_NAME:
+                queryBuilder.appendWhere(DbHandler.EMPLOYEE_KEY_FIRSTNAME + " LIKE " + "'%"+selection+"%'"
+                + " OR " + DbHandler.EMPLOYEE_KEY_LASTNAME + " LIKE " + "'%"+selection+"%'");
+                queryBuilder.setTables(DbHandler.EMPLOYEE_TABLE);
+                break;
             case INVENTORY_ID:
                 // Adding the ID to the original query
                 queryBuilder.appendWhere(DbHandler.INVENTORY_KEY_ID + "="
@@ -101,6 +109,7 @@ public class DataProvider extends ContentProvider
             sortOrder);
         cursor.setNotificationUri(getContext().getContentResolver(),
                 uri);
+        Log.i("test", String.valueOf(cursor.getCount()));
         return cursor;
     }
 

@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.support.v4.app.LoaderManager;
+import android.widget.FilterQueryProvider;
 import android.widget.GridView;
 import android.widget.SearchView;
 
@@ -41,6 +42,8 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
      */
     private GoogleApiClient client;
     private CursorAdapter cursorAdapter;
+    private String filter;
+    private String[] arg;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -53,11 +56,10 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
         final CustomGridAdapter gridAdapter;
 
         String[] from = {DbHandler.EMPLOYEE_KEY_FIRSTNAME ,  DbHandler.EMPLOYEE_KEY_LASTNAME};
-        int[] to = {android.R.id.text1};
+        int[] to = {R.id.grid_item};
 
-        cursorAdapter = new SimpleCursorAdapter(this,android.R.layout.simple_list_item_1,null,from,to,0);
+        cursorAdapter = new CustomCursorLoader(this,null,0);
 
-        gridAdapter = new CustomGridAdapter(HomeScreen.this, textView);
         employeeGrid.setAdapter(cursorAdapter);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, simple_list_item_1, textView);
 
@@ -83,7 +85,7 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
 //                String message = editText.getText().toString();
 //                intent.putExtra(EXTRA_MESSAGE, message);
                 startActivity(intent);
-                Toast.makeText( getApplicationContext(),"employee button did click", Toast.LENGTH_SHORT).show();
+//                Toast.makeText( getApplicationContext(),"employee button did click", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -95,9 +97,13 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
 
             @Override
             public boolean onQueryTextChange(String newText) {
+//                cursorAdapter.setFilterQueryProvider();
+                filter = newText;
 
-                cursorAdapter.getFilter().filter(newText);
-                cursorAdapter.notifyDataSetChanged();
+                getSupportLoaderManager().restartLoader(1,null,HomeScreen.this);
+                Log.i("HOMESCREEN",newText);
+//                cursorAdapter.getFilter().filter(newText);
+
                 return false;
             }
         });
@@ -126,7 +132,18 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, DataProvider.URI_EMPLOYEE,null,null,null,null);
+        CursorLoader loader = null;
+        switch (id)
+        {
+            case 0:
+                loader =  new CursorLoader(this, DataProvider.URI_EMPLOYEE, null, null, null, null);
+            break;
+            case 1:
+                loader = new CursorLoader(this,DataProvider.URI_EMPLOYEE,null, DbHandler.EMPLOYEE_KEY_FIRSTNAME + " OR " + DbHandler.EMPLOYEE_KEY_LASTNAME
+                        + " LIKE ?", new String[]  {"%"+ filter+"%"},null);
+            break;
+        }
+        return loader;
     }
 
     @Override
