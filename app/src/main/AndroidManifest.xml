@@ -32,11 +32,13 @@
 
         <activity android:name=".employeeActivity" />
         <activity android:name=".SaleActivity" />
-       <!-- <activity android:name=".PinDialog"
+        <!--
+        <activity android:name=".PinDialog"
             />
         <activity android:name=".employeePopUp"
             />
-            -->
+        -->
+        <activity android:name=".AppointmentActivity"></activity>
     </application>
 
 </manifest>

@@ -35,14 +35,15 @@ public class employeePopUp extends Dialog implements View.OnClickListener
     private EditText driverLicense;
     private EditText dateOfBirth;
     private String roleString;
+    private Bundle info;
 
 
-
-    public employeePopUp(Activity a)
+    public employeePopUp(Activity a,Bundle bundle)
     {
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
+        this.info = bundle;
     }
 
     @Override
@@ -50,7 +51,17 @@ public class employeePopUp extends Dialog implements View.OnClickListener
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_pop_up);
-        setTitle("Employee Info");
+
+        init();
+        if (info != null)
+        {
+            firstName.setText(info.getString("test"));
+        }
+
+
+    }
+
+    private void init() {
         save = (Button) findViewById(R.id.saveButton);
         cancel = (Button) findViewById(R.id.cancelButton);
         save.setOnClickListener(this);
@@ -66,10 +77,6 @@ public class employeePopUp extends Dialog implements View.OnClickListener
         dateOfBirth = (EditText) findViewById(R.id.dateOfBirth);
         role = (RadioGroup) findViewById(R.id.radioGroup);
         roleString = role.getCheckedRadioButtonId() == R.id.employeeRadioButton? "Employee" : "Manager";
-
-
-
-
     }
 
     @Override

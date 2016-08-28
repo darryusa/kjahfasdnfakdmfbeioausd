@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,8 @@ public class DbHandler extends SQLiteOpenHelper{
     public static final String SALES_KEY_SUBTOTAL = "subtotal";
     public static final String SALES_KEY_SALETAX = "saletax";
     public static final String SALES_KEY_DATECREATED = "date";
+    public static final String SALES_KEY_CASHSALE = "cashsale";
+    public static final String SALES_KEY_CREDITSALE = "creditsale";
 
     public static final String SALEDESCRIPTION_TABLE = "saledecription";
     public static final String SALEDESCRIPTION_ID = "_id";
@@ -91,6 +94,8 @@ public class DbHandler extends SQLiteOpenHelper{
         String CREATE_SALES_TABLE = "CREATE TABLE " + SALES_TABLE +
                 " ( " + SALES_KEY_ID + " INTEGER PRIMARY KEY, "
                 + SALES_KEY_EMPLOYEEID + " TEXT, "
+                + SALES_KEY_CASHSALE + " TEXT, "
+                + SALES_KEY_CREDITSALE + " TEXT, "
                 + SALES_KEY_TOTAL + " REAL, "
                 + SALES_KEY_SUBTOTAL + " REAL, "
                 + SALES_KEY_SALETAX + " REAL, "
@@ -105,14 +110,12 @@ public class DbHandler extends SQLiteOpenHelper{
         db.execSQL(CREATE_SALES_TABLE);
         db.execSQL(CREATE_SALEDESCRIPTION_TABLE);
 
-//        db.insert()
-//        SQLiteDatabase db1 = this.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(DbHandler.EMPLOYEE_KEY_FIRSTNAME, "admin");
-//        values.put(DbHandler.EMPLOYEE_KEY_PIN, "5555");
-//        db1.insert(EMPLOYEE_TABLE, null, values);
-//        db1.close(); // Closing database connection
-//        addEmployee(new Employee(0,"admin",null,null,null,null,"5555",null,1));
+
+        ContentValues values = new ContentValues();
+        values.put(DbHandler.EMPLOYEE_KEY_ROLE, "Admin");
+        values.put(DbHandler.EMPLOYEE_KEY_PIN, "5555");
+        db.insert(DbHandler.EMPLOYEE_TABLE, null , values);
+
     }
 
     @Override
@@ -121,35 +124,7 @@ public class DbHandler extends SQLiteOpenHelper{
 // Creating tables again
         onCreate(db);
     }
-//    public void addEmployee(Employee newEmployee) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(EMPLOYEE_KEY_FIRSTNAME, newEmployee.getFirstName());
-//        values.put(EMPLOYEE_KEY_LASTNAME, newEmployee.getLastName());
-//        values.put(EMPLOYEE_KEY_ADDRESS, newEmployee.getAddress());
-//        values.put(EMPLOYEE_KEY_PHONENUMBER, newEmployee.getPhoneNumber());
-//        values.put(EMPLOYEE_KEY_SSN, newEmployee.getSSN());
-//        values.put(EMPLOYEE_KEY_PIN, newEmployee.getPIN());
-//        values.put(EMPLOYEE_KEY_DATECREATED, newEmployee.getDateCreated());
-//        values.put(EMPLOYEE_KEY_ACTIVE, newEmployee.isActivate()? 1:0);
-//        values.put(EMPLOYEE_KEY_DATECREATED, newEmployee)
-//        // Inserting Row
-//        db.insert(EMPLOYEE_TABLE, null, values);
-//        db.close(); // Closing database connection
-//    }
-//    public Employee getEmployee(int id) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.query(EMPLOYEE_TABLE, new String[] { EMPLOYEE_KEY_ID,
-//                        EMPLOYEE_KEY_FIRSTNAME, EMPLOYEE_KEY_LASTNAME, EMPLOYEE_KEY_ADDRESS, EMPLOYEE_KEY_PHONENUMBER, EMPLOYEE_KEY_SSN,EMPLOYEE_KEY_PIN,EMPLOYEE_KEY_DATECREATED,EMPLOYEE_KEY_ACTIVE,EMPLOYEE_KEY_DRIVERLICENSE,EMPLOYEE_KEY_DATEOFBIRTH}, EMPLOYEE_KEY_ID + "=?",
-//                new String[] { String.valueOf(id) }, null, null, null, null);
-//        if (cursor != null)
-//            cursor.moveToFirst();
-//        Employee contact = new Employee(Integer.parseInt(cursor.getString(0)),
-//                cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),
-//                cursor.getString(6),cursor.getString(7),Integer.parseInt(cursor.getString(8)));
-//
-//        return contact;
-//    }
+
     public List<Employee> getAllShops()
     {
         List<Employee> employeeList = new ArrayList<Employee>();
@@ -210,4 +185,6 @@ public class DbHandler extends SQLiteOpenHelper{
                 new String[] { String.valueOf(employee.getEmployeeID()) });
         db.close();
     }
+
+
 }

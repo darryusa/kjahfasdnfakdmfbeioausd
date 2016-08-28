@@ -8,14 +8,14 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class employeeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
-{
+public class employeeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     CursorAdapter cursorAdapter;
     String filter;
 
@@ -30,6 +30,7 @@ public class employeeActivity extends AppCompatActivity implements LoaderManager
         cursorAdapter = new CustomCursorLoaderListView(this,null,0);
         listView.setAdapter(cursorAdapter);
         getSupportLoaderManager().initLoader(0,null,this);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -49,11 +50,33 @@ public class employeeActivity extends AppCompatActivity implements LoaderManager
             @Override
             public void onClick(View v)
             {
-                employeePopUp employeeInfo = new employeePopUp(employeeActivity.this);
+                employeePopUp employeeInfo = new employeePopUp(employeeActivity.this,null);
                 employeeInfo.show();
                 Toast.makeText( getApplicationContext(),"Add Employee", Toast.LENGTH_SHORT).show();
             }
         });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Bundle bundle = new Bundle();
+                bundle.putString("test","this is a test");
+                employeePopUp employeeEdit = new employeePopUp(employeeActivity.this,bundle);
+                employeeEdit.show();
+            }
+        });
+
+
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("test","this is a test");
+//                employeePopUp employeeEdit = new employeePopUp(employeeActivity.this,bundle);
+//                employeeEdit.show();
+//            }
+//        });
+
+
 
     }
 
@@ -68,7 +91,7 @@ public class employeeActivity extends AppCompatActivity implements LoaderManager
         switch (id)
         {
             case 0:
-                loader =  new CursorLoader(this, DataProvider.URI_EMPLOYEE, null, null, null, null);
+                loader =  new CursorLoader(this, DataProvider.URI_EMPLOYEE, null, DbHandler.EMPLOYEE_KEY_ROLE + " != ?", new String[] {"Admin"}, null);
                 break;
             case 1:
                 loader = new CursorLoader(this,DataProvider.URI_EMPLOYEE,null, DbHandler.EMPLOYEE_KEY_FIRSTNAME
@@ -88,4 +111,6 @@ public class employeeActivity extends AppCompatActivity implements LoaderManager
     public void onLoaderReset(Loader<Cursor> loader) {
         cursorAdapter.swapCursor(null);
     }
+
+
 }
