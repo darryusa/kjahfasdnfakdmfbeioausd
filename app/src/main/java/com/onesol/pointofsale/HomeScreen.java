@@ -50,16 +50,13 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
         SearchView searchView = (SearchView) findViewById(R.id.searchView);
         Button employeeButton = (Button) findViewById(R.id.employeeButton);
         final GridView employeeGrid = (GridView) findViewById(R.id.gridView);
-
         cursorAdapter = new CustomCursorLoader(this,null,0);
-
         employeeGrid.setAdapter(cursorAdapter);
-
-        employeeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        employeeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-
                 PinDialog pin = new PinDialog(HomeScreen.this);
                 pin.show();
                 final ArrayList<String> pinResult = pinChecker(id,EMPLOYEE);
@@ -74,7 +71,7 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
                             if (pinEnter[0].equalsIgnoreCase(pinResult.get(i)))
                             {
                                 //move to sale window
-                                Toast.makeText(getApplicationContext(), "sucessed " , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "succeed " , Toast.LENGTH_SHORT).show();
                                 return;
                             }
                         }
@@ -108,13 +105,13 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
 //                EditText editText = (EditText) findViewById(R.id.edit_message);
 //                String message = editText.getText().toString();
 //                intent.putExtra(EXTRA_MESSAGE, message);
-                                startActivity(intent);                                return;
+                                startActivity(intent);
+                                return;
                             }
                         }
                         Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -175,21 +172,6 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
         return getApplicationContext();
     }
 
-    private void insertEmployee(String firstName, String lastName,String address, String phoneNumber, String SSN, String PIN) {
-        ContentValues values = new ContentValues();
-        values.put(DbHandler.EMPLOYEE_KEY_FIRSTNAME, firstName);
-        values.put(DbHandler.EMPLOYEE_KEY_LASTNAME, lastName);
-        values.put(DbHandler.EMPLOYEE_KEY_ADDRESS, address);
-        values.put(DbHandler.EMPLOYEE_KEY_PHONENUMBER, phoneNumber);
-        values.put(DbHandler.EMPLOYEE_KEY_SSN, SSN);
-        values.put(DbHandler.EMPLOYEE_KEY_PIN, PIN);
-//        values.put(DbHandler.EMPLOYEE_KEY_DATECREATED, dateCreated);
-
-
-        //Uri employeeUri = getContentResolver().insert(DataProvider.CONTENT_URI, values);
-        //Log.d("HomeScreen", "InsertedNote" + employeeUri.getLastPathSegment());
-    }
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -197,7 +179,7 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
         switch (id)
         {
             case 0:
-                loader =  new CursorLoader(this, DataProvider.URI_EMPLOYEE, null, null, null, null);
+                loader =  new CursorLoader(this, DataProvider.URI_EMPLOYEE, null, DbHandler.EMPLOYEE_KEY_ROLE + " != ?", new String[] {"Admin"}, null);
             break;
             case 1:
                 loader = new CursorLoader(this,DataProvider.URI_EMPLOYEE,null, DbHandler.EMPLOYEE_KEY_FIRSTNAME

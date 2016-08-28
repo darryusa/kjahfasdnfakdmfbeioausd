@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,9 +108,11 @@ public class DbHandler extends SQLiteOpenHelper{
 
 //        db.insert()
 //        SQLiteDatabase db1 = this.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(DbHandler.EMPLOYEE_KEY_FIRSTNAME, "admin");
-//        values.put(DbHandler.EMPLOYEE_KEY_PIN, "5555");
+        ContentValues values = new ContentValues();
+        values.put(DbHandler.EMPLOYEE_KEY_ROLE, "Admin");
+        values.put(DbHandler.EMPLOYEE_KEY_PIN, "5555");
+//        getContent().getContentResolver().insert(DataProvider.URI_EMPLOYEE, values);
+        db.insert(DbHandler.EMPLOYEE_TABLE, null , values);
 //        db1.insert(EMPLOYEE_TABLE, null, values);
 //        db1.close(); // Closing database connection
 //        addEmployee(new Employee(0,"admin",null,null,null,null,"5555",null,1));
@@ -210,4 +213,6 @@ public class DbHandler extends SQLiteOpenHelper{
                 new String[] { String.valueOf(employee.getEmployeeID()) });
         db.close();
     }
+
+
 }
