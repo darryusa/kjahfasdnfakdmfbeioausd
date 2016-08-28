@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class employeeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemSelectedListener {
+public class employeeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     CursorAdapter cursorAdapter;
     String filter;
 
@@ -30,6 +30,7 @@ public class employeeActivity extends AppCompatActivity implements LoaderManager
         cursorAdapter = new CustomCursorLoaderListView(this,null,0);
         listView.setAdapter(cursorAdapter);
         getSupportLoaderManager().initLoader(0,null,this);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -49,12 +50,33 @@ public class employeeActivity extends AppCompatActivity implements LoaderManager
             @Override
             public void onClick(View v)
             {
-                employeePopUp employeeInfo = new employeePopUp(employeeActivity.this);
+                employeePopUp employeeInfo = new employeePopUp(employeeActivity.this,null);
                 employeeInfo.show();
                 Toast.makeText( getApplicationContext(),"Add Employee", Toast.LENGTH_SHORT).show();
             }
         });
-//        listView.setOnItemSelectedListener();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Bundle bundle = new Bundle();
+                bundle.putString("test","this is a test");
+                employeePopUp employeeEdit = new employeePopUp(employeeActivity.this,bundle);
+                employeeEdit.show();
+            }
+        });
+
+
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("test","this is a test");
+//                employeePopUp employeeEdit = new employeePopUp(employeeActivity.this,bundle);
+//                employeeEdit.show();
+//            }
+//        });
+
+
 
     }
 
@@ -90,13 +112,5 @@ public class employeeActivity extends AppCompatActivity implements LoaderManager
         cursorAdapter.swapCursor(null);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }

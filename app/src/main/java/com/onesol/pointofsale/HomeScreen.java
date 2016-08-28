@@ -50,8 +50,19 @@ public class HomeScreen extends AppCompatActivity implements LoaderManager.Loade
         SearchView searchView = (SearchView) findViewById(R.id.searchView);
         Button employeeButton = (Button) findViewById(R.id.employeeButton);
         final GridView employeeGrid = (GridView) findViewById(R.id.gridView);
+        Button appoimentButton = (Button) findViewById(R.id.appointmentButton);
         cursorAdapter = new CustomCursorLoader(this,null,0);
         employeeGrid.setAdapter(cursorAdapter);
+        appoimentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AppointmentActivity.class);
+//                EditText editText = (EditText) findViewById(R.id.edit_message);
+//                String message = editText.getText().toString();
+//                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+            }
+        });
         employeeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override

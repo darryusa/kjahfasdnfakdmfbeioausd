@@ -124,35 +124,7 @@ public class DbHandler extends SQLiteOpenHelper{
 // Creating tables again
         onCreate(db);
     }
-//    public void addEmployee(Employee newEmployee) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(EMPLOYEE_KEY_FIRSTNAME, newEmployee.getFirstName());
-//        values.put(EMPLOYEE_KEY_LASTNAME, newEmployee.getLastName());
-//        values.put(EMPLOYEE_KEY_ADDRESS, newEmployee.getAddress());
-//        values.put(EMPLOYEE_KEY_PHONENUMBER, newEmployee.getPhoneNumber());
-//        values.put(EMPLOYEE_KEY_SSN, newEmployee.getSSN());
-//        values.put(EMPLOYEE_KEY_PIN, newEmployee.getPIN());
-//        values.put(EMPLOYEE_KEY_DATECREATED, newEmployee.getDateCreated());
-//        values.put(EMPLOYEE_KEY_ACTIVE, newEmployee.isActivate()? 1:0);
-//        values.put(EMPLOYEE_KEY_DATECREATED, newEmployee)
-//        // Inserting Row
-//        db.insert(EMPLOYEE_TABLE, null, values);
-//        db.close(); // Closing database connection
-//    }
-//    public Employee getEmployee(int id) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.query(EMPLOYEE_TABLE, new String[] { EMPLOYEE_KEY_ID,
-//                        EMPLOYEE_KEY_FIRSTNAME, EMPLOYEE_KEY_LASTNAME, EMPLOYEE_KEY_ADDRESS, EMPLOYEE_KEY_PHONENUMBER, EMPLOYEE_KEY_SSN,EMPLOYEE_KEY_PIN,EMPLOYEE_KEY_DATECREATED,EMPLOYEE_KEY_ACTIVE,EMPLOYEE_KEY_DRIVERLICENSE,EMPLOYEE_KEY_DATEOFBIRTH}, EMPLOYEE_KEY_ID + "=?",
-//                new String[] { String.valueOf(id) }, null, null, null, null);
-//        if (cursor != null)
-//            cursor.moveToFirst();
-//        Employee contact = new Employee(Integer.parseInt(cursor.getString(0)),
-//                cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),
-//                cursor.getString(6),cursor.getString(7),Integer.parseInt(cursor.getString(8)));
-//
-//        return contact;
-//    }
+
     public List<Employee> getAllShops()
     {
         List<Employee> employeeList = new ArrayList<Employee>();
