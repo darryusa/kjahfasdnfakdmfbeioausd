@@ -26,6 +26,7 @@ public class DataProvider extends ContentProvider
     public static final Uri URI_SALESDISCRIPTION = Uri.parse("content://" + AUTHORITY + "/salesdiscriptionuri");
     //public static final Uri URI_EXPENSES = Uri.parse("content://" + AUTHORITY + "/expensesuri");
 
+
     // ENUM to identify the requested operation
     private static final int EMPLOYEE = 1;
     private static final int EMPLOYEE_ID = 2;
