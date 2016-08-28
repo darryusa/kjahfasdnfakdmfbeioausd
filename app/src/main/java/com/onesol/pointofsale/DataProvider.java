@@ -102,7 +102,6 @@ public class DataProvider extends ContentProvider
             sortOrder);
         cursor.setNotificationUri(getContext().getContentResolver(),
                 uri);
-        Log.i("test", String.valueOf(cursor.getCount()));
         return cursor;
     }
 

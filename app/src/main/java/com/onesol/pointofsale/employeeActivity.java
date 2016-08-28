@@ -8,14 +8,14 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class employeeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
-{
+public class employeeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemSelectedListener {
     CursorAdapter cursorAdapter;
     String filter;
 
@@ -54,6 +54,7 @@ public class employeeActivity extends AppCompatActivity implements LoaderManager
                 Toast.makeText( getApplicationContext(),"Add Employee", Toast.LENGTH_SHORT).show();
             }
         });
+//        listView.setOnItemSelectedListener();
 
     }
 
@@ -68,7 +69,7 @@ public class employeeActivity extends AppCompatActivity implements LoaderManager
         switch (id)
         {
             case 0:
-                loader =  new CursorLoader(this, DataProvider.URI_EMPLOYEE, null, null, null, null);
+                loader =  new CursorLoader(this, DataProvider.URI_EMPLOYEE, null, DbHandler.EMPLOYEE_KEY_ROLE + " != ?", new String[] {"Admin"}, null);
                 break;
             case 1:
                 loader = new CursorLoader(this,DataProvider.URI_EMPLOYEE,null, DbHandler.EMPLOYEE_KEY_FIRSTNAME
@@ -87,5 +88,15 @@ public class employeeActivity extends AppCompatActivity implements LoaderManager
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         cursorAdapter.swapCursor(null);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
