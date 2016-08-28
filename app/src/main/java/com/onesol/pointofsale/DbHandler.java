@@ -44,6 +44,8 @@ public class DbHandler extends SQLiteOpenHelper{
     public static final String SALES_KEY_SUBTOTAL = "subtotal";
     public static final String SALES_KEY_SALETAX = "saletax";
     public static final String SALES_KEY_DATECREATED = "date";
+    public static final String SALES_KEY_CASHSALE = "cashsale";
+    public static final String SALES_KEY_CREDITSALE = "creditsale";
 
     public static final String SALEDESCRIPTION_TABLE = "saledecription";
     public static final String SALEDESCRIPTION_ID = "_id";
@@ -92,6 +94,8 @@ public class DbHandler extends SQLiteOpenHelper{
         String CREATE_SALES_TABLE = "CREATE TABLE " + SALES_TABLE +
                 " ( " + SALES_KEY_ID + " INTEGER PRIMARY KEY, "
                 + SALES_KEY_EMPLOYEEID + " TEXT, "
+                + SALES_KEY_CASHSALE + " TEXT, "
+                + SALES_KEY_CREDITSALE + " TEXT, "
                 + SALES_KEY_TOTAL + " REAL, "
                 + SALES_KEY_SUBTOTAL + " REAL, "
                 + SALES_KEY_SALETAX + " REAL, "
@@ -106,16 +110,12 @@ public class DbHandler extends SQLiteOpenHelper{
         db.execSQL(CREATE_SALES_TABLE);
         db.execSQL(CREATE_SALEDESCRIPTION_TABLE);
 
-//        db.insert()
-//        SQLiteDatabase db1 = this.getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put(DbHandler.EMPLOYEE_KEY_ROLE, "Admin");
         values.put(DbHandler.EMPLOYEE_KEY_PIN, "5555");
-//        getContent().getContentResolver().insert(DataProvider.URI_EMPLOYEE, values);
         db.insert(DbHandler.EMPLOYEE_TABLE, null , values);
-//        db1.insert(EMPLOYEE_TABLE, null, values);
-//        db1.close(); // Closing database connection
-//        addEmployee(new Employee(0,"admin",null,null,null,null,"5555",null,1));
+
     }
 
     @Override
