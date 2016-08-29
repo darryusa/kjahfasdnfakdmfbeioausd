@@ -9,10 +9,29 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.onesol.pointofsale.AppointmentActivity">
 
-    <DatePicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/datePicker2"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+    <CalendarView
+        android:layout_width="201dp"
+        android:layout_height="199dp"
+        android:id="@+id/calendarView"
         android:layout_gravity="right|top" />
 
     <TableLayout
@@ -24,8 +43,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ListView android:id="@+id/listView2"
+            <ListView android:id="@+id/listView3"
                 android:layout_column="0" />
         </TableRow>
     </TableLayout>
+
 </FrameLayout>

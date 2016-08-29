@@ -60,23 +60,10 @@
             android:layout_weight="0.37">
 
             <ListView
-                android:layout_width="194dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/listView"
                 android:layout_weight="0.67" />
-
-            <GridView
-                android:id="@+id/gridview"
-                android:layout_width="980dp"
-                android:layout_height="fill_parent"
-                android:numColumns="7"
-                android:verticalSpacing="1dp"
-                android:horizontalSpacing="1dp"
-                android:gravity="center"
-                android:background="#DADADA"
-                />
-
-
 
 
         </GridLayout>
