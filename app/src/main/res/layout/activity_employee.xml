@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/bamboo_nail_amp_spa"
+                android:text="Bamboo Nail &amp; Spa Employees"
                 android:id="@+id/textView"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
@@ -54,19 +54,26 @@
         </FrameLayout>
 
 
-        <GridLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="410dp"
-            android:layout_weight="0.37">
+            android:layout_weight="0.37"
+            android:layout_gravity="center">
 
             <ListView
-                android:layout_width="match_parent"
+                android:layout_width="580dp"
                 android:layout_height="match_parent"
                 android:id="@+id/listView"
-                android:layout_weight="0.67" />
+                android:layout_weight="0.67"
+                android:foregroundGravity="center"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:textSize="21sp"
+                android:clickable="true" />
 
 
-        </GridLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="1180dp"
