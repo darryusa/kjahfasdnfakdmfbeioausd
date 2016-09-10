@@ -11,243 +11,166 @@
     android:background="@drawable/bamboobackground"
     >
 
+
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="1">
 
-        <FrameLayout
-            android:layout_width="1174dp"
-            android:layout_height="90dp"
-            android:weightSum="1"
-            android:gravity="center_vertical">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="156dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/textView2" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/listView2"
+                android:layout_weight="0.40"
+                tools:listitem="@android:layout/simple_list_item_multiple_choice" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/bamboo_nail_amp_spa"
-                android:id="@+id/textView"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_alignTop="@+id/textClock"
-                android:layout_gravity="center" />
+                android:text="New Text"
+                android:id="@+id/textView3" />
 
-            <TextClock
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textClock"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="right|top" />
+                android:text="New Text"
+                android:id="@+id/textView4" />
 
-            <SearchView
-                android:layout_width="153dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/searchViewEmployee"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/textView"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="left|center_vertical" />
-
-        </FrameLayout>
-
+                android:text="New Text"
+                android:id="@+id/textView5" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="439dp"
-            android:weightSum="1"
-            android:dividerPadding="22dip">
+            android:layout_width="59dp"
+            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:id="@+id/imageView"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="94dp"
-                    android:layout_height="wrap_content"
-                    android:text="Bill Of Sale"
-                    android:id="@+id/textView3"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center" />
-
-                <GridView
-                    android:layout_width="302dp"
-                    android:layout_height="402dp"
-                    android:id="@+id/gridView2"
-                    android:layout_gravity="center_vertical"
-                    tools:listitem="@android:layout/simple_list_item_multiple_choice" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="21dp"
-                android:layout_height="match_parent">
-
-            </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="562dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.90">
 
             <TabHost
-                android:layout_width="644dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/tabHost"
-                android:layout_gravity="center_vertical">
+                android:id="@android:id/tabHost"
+                android:layout_gravity="center_horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Items List"
-                        android:id="@+id/textView2"
-                        android:gravity="center"
-                        android:layout_gravity="center_horizontal" />
-
                     <TabWidget
-                        android:id="@android:id/tabs"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></TabWidget>
+                        android:layout_height="211dp"
+                        android:id="@android:id/tabs"></TabWidget>
 
                     <FrameLayout
                         android:id="@android:id/tabcontent"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <GridView
-                            tools:listitem="@layout/cell"
-                            android:layout_width="match_parent"
-                            android:layout_height="411dp"
-                            android:id="@+id/gridView3"
-                            android:layout_gravity="center_vertical"
-                            android:numColumns="4" />
+                        android:layout_height="433dp">
 
                         <LinearLayout
-                            android:orientation="vertical"
+                            android:id="@+id/linearLayout2"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
+                            <GridView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/gridView2"
+                                tools:listitem="@layout/cell" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <GridView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/gridView3"
+                                tools:listitem="@layout/cell" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/linearLayout4"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"></LinearLayout>
+                            android:layout_height="461dp"
+                            android:orientation="vertical">
 
+                            <GridView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/gridView4"
+                                tools:listitem="@layout/cell" />
+                        </LinearLayout>
                     </FrameLayout>
                 </LinearLayout>
             </TabHost>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="22dp"
-                android:layout_height="match_parent" >
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/button"
-                    android:layout_gravity="center_horizontal" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/button2"
-                    android:layout_gravity="center_horizontal" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/button3"
-                    android:layout_gravity="center_horizontal" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/button4"
-                    android:layout_gravity="center_horizontal" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/button5"
-                    android:layout_gravity="center_horizontal" />
-            </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="1180dp"
+            android:orientation="vertical"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="206dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            android:gravity="bottom|center_horizontal">
+            android:layout_gravity="center_vertical">
 
             <Button
-                android:layout_width="200dp"
-                android:layout_height="70dp"
-                android:text="Add Item"
-                android:id="@+id/addButton"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/button"
+                android:layout_gravity="center_horizontal" />
 
             <Button
-                android:layout_width="200dp"
-                android:layout_height="70dp"
-                android:text="Remove Item"
-                android:id="@+id/removeButton"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/button2"
+                android:layout_gravity="center_horizontal" />
 
             <Button
-                android:layout_width="200dp"
-                android:layout_height="70dp"
-                android:text="Quick Item"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-
-                android:id="@+id/quickItemButton"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0" />
-
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="70dp"
-                android:text="Checkout"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-
-                android:id="@+id/checkoutButton"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0" />
-
-
-
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/button3"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
-
     </LinearLayout>
-
 </LinearLayout>
