@@ -66,15 +66,15 @@ public class employeeActivity extends AppCompatActivity implements LoaderManager
         });
 
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("test","this is a test");
-//                employeePopUp employeeEdit = new employeePopUp(employeeActivity.this,bundle);
-//                employeeEdit.show();
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle bundle = new Bundle();
+                bundle.putString("test","this is a test");
+                employeePopUp employeeEdit = new employeePopUp(employeeActivity.this,bundle);
+                employeeEdit.show();
+            }
+        });
 
 
 

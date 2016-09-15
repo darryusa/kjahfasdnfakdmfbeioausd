@@ -27,6 +27,7 @@ public class CustomCursorLoaderListView extends CursorAdapter {
         String name = cursor.getString(cursor.getColumnIndex(DbHandler.EMPLOYEE_KEY_FIRSTNAME)) + " "
                 + cursor.getString(cursor.getColumnIndex(DbHandler.EMPLOYEE_KEY_LASTNAME));
         TextView textView = (TextView) view.findViewById(R.id.listViewButton);
+      textView.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         textView.setText(name);
 
     }
